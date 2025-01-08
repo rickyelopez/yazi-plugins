@@ -222,6 +222,6 @@ return {
     end
 
     -- deselect all
-    ya.manager_emit("select_all", { state = "false" })
+    ya.manager_emit("toggle_all", { state = "off" })
   end,
 }
