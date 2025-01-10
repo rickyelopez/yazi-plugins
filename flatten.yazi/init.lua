@@ -83,25 +83,18 @@ end
 ---@param dest string
 ---@return NodeInfo | string
 local create_dest = function(dest)
-  local output, err = Command("mkdir"):arg("-p"):arg("./" .. dest):stdout(Command.PIPED):stderr(Command.PIPED):output()
+  local dest_url = Url("./" .. dest)
+  local ok, err = fs.create("dir_all", dest_url)
 
-  if not output or not output.status or not output.status.success then
-    notify_error(
-      string.format(
-        "Flattening selected dirs failed with exit code: '%s'\n stdout: %s\n stderr: %s",
-        output.status and output.status.code or err,
-        output.stdout,
-        output.stderr
-      )
-    )
+  if not ok then
+    notify_error(string.format("Failed to create requested directory with error: %s", err))
     return err
   end
 
-  local dest_url = Url("./" .. dest)
   local dest_cha
   dest_cha, err = fs.cha(dest_url)
   if dest_cha == nil then
-    notify_error("Failed to build a cha from the given target directory name")
+    notify_error(string.format("Failed to build a cha from the given target directory name:\n%s", err))
     return err
   end
 
