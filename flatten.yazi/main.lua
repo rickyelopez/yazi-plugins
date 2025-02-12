@@ -171,6 +171,7 @@ RecursiveMove = function(dest, source, recursion_depth)
   return nil
 end
 
+--- @since 25.2.7
 return {
   entry = function()
     -- exit visual selection mode
