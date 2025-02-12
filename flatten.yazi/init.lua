@@ -6,6 +6,7 @@ local NodeInfo = {}
 --- Helper function to send an error notification with the given content
 ---@param content string
 local notify_error = function(content)
+  ya.err(string.format("yazi-flatten: %s", content))
   ya.notify({
     title = "Flatten",
     content = content,
@@ -17,6 +18,7 @@ end
 --- Helper function to send a warn notification with the given content
 ---@param content string
 local notify_warn = function(content)
+  ya.dbg(string.format("yazi-flatten: %s", content))
   ya.notify({
     title = "Flatten",
     content = content,
@@ -147,7 +149,6 @@ RecursiveMove = function(dest, source, recursion_depth)
     return rm_if_empty(source)
   end
 
-  ya.dbg(string.format("moving '%s' to '%s'", tostring(source.url), tostring(dest.url)))
   local output, err = Command("mv")
     :arg("-n")
     :arg(tostring(source.url))
@@ -164,7 +165,6 @@ RecursiveMove = function(dest, source, recursion_depth)
       output.stderr
     )
     notify_error(error_string)
-    ya.err(error_string)
     return err
   end
 
@@ -174,7 +174,7 @@ end
 return {
   entry = function()
     -- exit visual selection mode
-    ya.manager_emit("escape", { visual = true })
+    ya.manager_emit("escape", { visual = true})
 
     -- get the target directory name from the user
     local dest, event = ya.input({
@@ -215,6 +215,6 @@ return {
     end
 
     -- deselect all
-    ya.manager_emit("toggle_all", { state = "off" })
+    ya.manager_emit("escape", { select = true })
   end,
 }
