@@ -175,7 +175,7 @@ end
 return {
   entry = function()
     -- exit visual selection mode
-    ya.manager_emit("escape", { visual = true})
+    ya.mgr_emit("escape", { visual = true})
 
     -- get the target directory name from the user
     local dest, event = ya.input({
@@ -216,6 +216,6 @@ return {
     end
 
     -- deselect all
-    ya.manager_emit("escape", { select = true })
+    ya.mgr_emit("escape", { select = true })
   end,
 }
