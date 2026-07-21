@@ -175,12 +175,12 @@ end
 return {
   entry = function()
     -- exit visual selection mode
-    ya.mgr_emit("escape", { visual = true})
+    ya.emit("escape", { visual = true})
 
     -- get the target directory name from the user
     local dest, event = ya.input({
       title = "Flattened dir name (leave blank to flatten into first selected dir):",
-      position = { "top-center", y = 3, w = 40 },
+      pos = { "top-center", y = 3, w = 40 },
     })
 
     -- user aborted instead of prividing directory name
@@ -216,6 +216,6 @@ return {
     end
 
     -- deselect all
-    ya.mgr_emit("escape", { select = true })
+    ya.emit("escape", { select = true })
   end,
 }
