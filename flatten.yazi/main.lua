@@ -1,7 +1,10 @@
 --- @class NodeInfo
 --- @field url Url
 --- @field cha Cha
-local NodeInfo = {}
+
+--- @class Url
+
+--- @class Cha
 
 --- Helper function to send an error notification with the given content
 ---@param content string
@@ -28,7 +31,7 @@ local notify_warn = function(content)
 end
 
 --- Get sorted list of URLs of selected files/dirs
---- @return Urls[]
+--- @return Url[]
 local get_selected = ya.sync(function()
   local tab = cx.active
   local selected = {}
@@ -175,7 +178,7 @@ end
 return {
   entry = function()
     -- exit visual selection mode
-    ya.emit("escape", { visual = true})
+    ya.emit("escape", { visual = true })
 
     -- get the target directory name from the user
     local dest, event = ya.input({
