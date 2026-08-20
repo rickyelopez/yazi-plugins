@@ -33,8 +33,8 @@ local get_selected = ya.sync(function()
   local tab = cx.active
   local selected = {}
 
-  for _, url in pairs(tab.selected) do
-    selected[#selected + 1] = url
+  for idx, file in pairs(tab.selected) do
+    selected[idx] = file.url
   end
 
   table.sort(selected, function(a, b)
